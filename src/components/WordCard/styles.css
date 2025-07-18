@@ -1,0 +1,18 @@
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  max-width: 600px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 512px;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
