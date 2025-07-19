@@ -13,6 +13,8 @@
   --color-gray-900: oklch(0.208 0.042 265.755);
   --color-gray-950: #212529;
 
+  --font-mono: "Sentient Mono", monospace;
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   margin: 0;
@@ -38,7 +40,7 @@
 }
 
 .font-mono {
-  font-family: "Sentient Mono", monospace;
+  font-family: var(--font-mono);
 }
 
 body {
@@ -68,6 +70,20 @@ h2 {
   line-height: 1.2;
   font-weight: 300;
 }
+h3 {
+  font-size: 1.8em;
+  line-height: 1.3;
+  font-weight: 300;
+}
+
+h4 {
+  font-size: 0.75 em;
+  line-height: 1.4;
+  font-weight: 400;
+  font-family: var(--font-mono);
+  color: var(--color-gray-500);
+  margin-bottom: 0.25em;
+}
 
 p {
   margin: 0;
@@ -78,14 +94,22 @@ div {
 }
 
 button {
-  border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
+  font-family: var(--font-mono);
   cursor: pointer;
   transition: border-color 0.25s;
+  text-transform: uppercase;
+}
+
+li {
+  padding-left: 1.5em;
+}
+
+li:not(:last-child) {
+  margin-bottom: 0.5em;
 }
 
 @media (prefers-color-scheme: light) {
