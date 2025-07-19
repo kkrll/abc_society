@@ -3,7 +3,7 @@ import WordCard from "./WordCard";
 
 const OwnWords = ({ userWords }: { userWords: UserWord[] }) => {
   return (
-    <div className="min-h-screen p-4 flex flex-col items-stretch space-y-2">
+    <div className="min-h-screen px-4 flex flex-col items-stretch space-y-2">
       {userWords.map((word, index) => (
         <WordCard key={index} word={word.words} />
       ))}

@@ -6,6 +6,7 @@ export type Word = {
   examples: string[];
   prepositions: string[];
   synonyms: SynonymType[];
+  difficulty_level?: number;
 };
 
 export type UserWord = {
@@ -19,4 +20,8 @@ export type UserWord = {
 export type SynonymType = {
   word: string;
   note?: string; // Optional note to provide additional context or explanation
+};
+
+export type LanguagesType = {
+  activeLanguage: 1 | 2; // 1 for English, 2 for Polish
 };

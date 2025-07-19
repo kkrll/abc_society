@@ -1,51 +1,28 @@
-import "./App.css";
-import CommonWords from "./components/CommonWords";
-import { useAuth } from "./hooks/useAuth";
 import { useEffect, useState } from "react";
+
+import CommonWords from "./components/CommonWords";
 import Tabs from "./components/Tabs";
+import TabBar from "./components/TabBar";
 import OwnWords from "./components/OwnWords";
-import { supabase } from "./lib/supabase";
+
+import { useAuth } from "./hooks/useAuth";
+import useVocabStore from "./hooks/useVocab";
+import useLanguageStore from "./hooks/useLanguage";
+
+import "./App.css";
 
 const WordLists = () => {
   const [activeList, setActiveList] = useState<string>("Own");
-
-  const [words, setWords] = useState<any[]>([]);
   const { user } = useAuth();
+  const { userWords, fetchUserWords, fetchCommonWords } = useVocabStore();
+  const { currentLanguage } = useLanguageStore();
 
   useEffect(() => {
-    async function fetchWords() {
-      if (!user) return;
+    if (!user) return;
 
-      const { data: words, error } = await supabase
-        .from("user_words")
-        .select(
-          `
-    id,
-    knowledge_level,
-    context,
-    added_at,
-    words (
-      id,
-      word,
-      transcription,
-      meaning,
-      examples,
-      synonyms,
-      prepositions,
-      difficulty_level
-    )
-  `
-        )
-        .eq("user_id", user.id)
-        .order("added_at", { ascending: false });
-
-      if (error) console.error("Error:", error);
-      else setWords(words || []);
-    }
-
-    fetchWords();
-  }, [user]);
-  console.log("Words:", words);
+    fetchUserWords(user.id);
+    fetchCommonWords(currentLanguage);
+  }, [user, fetchUserWords, fetchCommonWords, currentLanguage]);
 
   return (
     <div className="min-h-screen ">
@@ -54,11 +31,10 @@ const WordLists = () => {
         activeTab={activeList}
         setActive={setActiveList}
       />
-      {/* {activeList === "Own" ? <CardStack words={words_en} /> : <CommonWords />} */}
       {activeList === "Own" ? (
-        <OwnWords userWords={words} />
+        <OwnWords userWords={userWords} />
       ) : (
-        <CommonWords userWordsData={words} />
+        <CommonWords userWordsData={userWords} />
       )}
     </div>
   );
@@ -80,6 +56,7 @@ function App() {
   return (
     <>
       <WordLists />
+      <TabBar />
     </>
   );
 }
